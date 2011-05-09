@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains UC Tejarat Payment required hook implementations and callbacks.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function uc_tejarat_menu() {
+
+}
+
+/**
+ * Implements hook_payment_method().
+ */
+function uc_tejarat_payment_method() {
+
+}

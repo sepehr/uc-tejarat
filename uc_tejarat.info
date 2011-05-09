@@ -1,0 +1,6 @@
+name = "Tejarat Bank"
+description = "Process payments using Tejarat Bank's gateway."
+core = 6.x
+package = "Ubercart - payment"
+dependencies[] = uc_payment
+dependencies[] = soapclient

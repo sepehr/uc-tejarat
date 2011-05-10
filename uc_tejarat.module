@@ -85,7 +85,7 @@ function uc_tejarat_form_uc_cart_checkout_review_form_alter(&$form, $form_state)
         // Inject hidden fields.
         _uc_tejarat_hidden_fields($data, $form);
         // And update the form action.
-        $form['#action'] = variable_get('uc_tejarat_gateway_uri', UC_TEJARAT_GATEWAY_URI);
+        $form['#action'] = _uc_tejarat_gateway_uri('controller');
       }
       // Problems!
       else {
@@ -281,4 +281,41 @@ function _uc_tejarat_hidden_fields($data, &$form = array()) {
       '#value' => $value,
     );
   }
+}
+
+/**
+ * Internal helper that returns proper controller/SOAP URI based on the environment.
+ *
+ * @param $type
+ *   URI type to return:
+ *   - both
+ *   - soap
+ *   - controller
+ *
+ * @param $test_env
+ *   Boolean that indicates if we're operating in test environment.
+ *
+ * @return
+ *   The proper gateway URI.
+ */
+function _uc_tejarat_gateway_uri($type = 'both', $test_env = NULL) {
+  // Check environment.
+  $test_env = is_null($test_env) ?
+    variable_get('uc_tejarat_test_env', FALSE) :
+    (bool) $test_env;
+
+  // Get proper URIs.
+  $uris = array(
+    // SOAP server URI:
+    'soap' => $test_env ?
+      variable_get('uc_tejarat_test_soap_uri', UC_TEJARAT_TEST_SOAP_URI) :
+      variable_get('uc_tejarat_soap_uri', UC_TEJARAT_SOAP_URI),
+    // Controller URI:
+    'controller' => $test_env ?
+      variable_get('uc_tejarat_test_gateway_uri', UC_TEJARAT_TEST_GATEWAY_URI) :
+      variable_get('uc_tejarat_gateway_uri', UC_TEJARAT_GATEWAY_URI),
+  );
+
+  // Return desired output.
+  return $type == 'both' ? $uris : $uris[$type];
 }

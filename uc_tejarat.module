@@ -113,7 +113,7 @@ function uc_tejarat_form_uc_cart_checkout_review_form_alter(&$form, $form_state)
  *
  * @see uc_tejarat_settings_validate()
  */
-function uc_paypaad_form_uc_payment_methods_form_alter(&$form, $form_state) {
+function uc_tejarat_form_uc_payment_methods_form_alter(&$form, $form_state) {
   $form['#validate'][] = 'uc_tejarat_settings_validate';
 }
 

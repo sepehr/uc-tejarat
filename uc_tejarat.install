@@ -27,3 +27,53 @@ function uc_tejarat_install() {
 function uc_tejarat_uninstall() {
 
 }
+
+/**
+ * Implements hook_schema().
+ */
+function uc_tejarat_schema() {
+  $schema = array();
+
+  $schema['uc_tejarat'] = array(
+    'description' => 'Stores Tejarat Bank Payment transactions.',
+    'fields' => array(
+      'tid' => array(
+        'description' => 'The primary identifier for a Tejarat Bank transaction.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => array(
+        'description' => 'Customer user identifier.',
+        'type' => 'int',
+        'length' => 11,
+        'not null' => TRUE,
+      ),
+      'pid' => array(
+        'description' => 'Payment identifier as per returned from the gateway.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'rid' => array(
+        'description' => 'Reference identifier as per returned from the gateway.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'amount' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'Transaction record timestamp.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('tid'),
+  );
+
+  return $schema;
+}

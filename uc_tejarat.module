@@ -264,7 +264,7 @@ function _uc_tejarat_prepare($order) {
     'customerId' => $order->uid,
     'paymentId'  => $order->order_id,
     'amount' => round($order->order_total),
-    'revertURL'  => $base_root . url('cart/tejarat'),
+    'revertURL'  => $base_root . url('cart/tejarat/complete'),
     'merchantId' => variable_get('uc_tejarat_merchant_code', ''),
   );
 }

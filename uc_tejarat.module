@@ -65,7 +65,34 @@ function uc_tejarat_payment_method() {
  * also alteres its action attribute, addressing the Tejarat Bank gateway.
  */
 function uc_tejarat_form_uc_cart_checkout_review_form_alter(&$form, $form_state) {
-
+  $order_id = intval($_SESSION['cart_order']);
+  // Check order identifier.
+  if ($order_id > 0 && ($order = uc_order_load($order_id))) {
+    // Alter the form if it's a Tejarat Bank payment.
+    if ($order->payment_method == 'tejarat') {
+      // Prepare the order object in form of Tejarat compatible data.
+      if ($data = _uc_tejarat_prepare($order)) {
+        // Inject hidden fields.
+        uc_tejarat_hidden_fields($data, $form);
+        // And update the form action.
+        $form['#action'] = variable_get('uc_tejarat_gateway_uri', UC_TEJARAT_GATEWAY_URI);
+      }
+      // Problems!
+      else {
+        // Notify customer.
+        drupal_set_message(t('There were a problem preparing your order for Tejarat Bank payment. If possible, choose another payment method or try again later.'), 'error');
+        // Notify the dog!
+        watchdog(
+          'uc_tejarat',
+          'There were a problem preparing the order ID %order for Tejarat Bank payment.',
+          array('%order' => $order->order_id),
+          WATCHDOG_ERROR
+        );
+        // And return to checkout page.
+        drupal_goto('cart/checkout');
+      }
+    }
+  }
 }
 
 /**

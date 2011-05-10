@@ -164,7 +164,7 @@ function uc_tejarat_settings($op, &$arg1) {
     $form['additional']['test']['uc_tejarat_test_env'] = array(
       '#type' => 'checkbox',
       '#title' => t('Operate in test environment'),
-      '#description' => t('Make sure to disable this feature in production.'),
+      '#description' => t('If checked, the system will operate in an test environment and so there will be no actual payment. Make sure to disable this feature in production.'),
       '#default_value' => 0,
       '#return_value'  => 1,
     );
@@ -172,17 +172,15 @@ function uc_tejarat_settings($op, &$arg1) {
     $form['additional']['test']['uc_tejarat_test_gateway_uri'] = array(
       '#type' => 'textfield',
       '#title' => t('Tejarat test gateway URI'),
-      '#description' => t('Do not change the default value unless you checked the Tejarat bank docs and it has changed.'),
+      '#description' => t('Will be used as the gateway controller URI if operating in test environment.'),
       '#default_value' => variable_get('uc_tejarat_test_gateway_uri', UC_TEJARAT_TEST_GATEWAY_URI),
-      '#required' => TRUE,
     );
     // Tejarat Bank SOAP endpoint address:
     $form['additional']['test']['uc_tejarat_test_soap_uri'] = array(
       '#type' => 'textfield',
       '#title' => t('Tejarat test SOAP Server URI'),
-      '#description' => t('Do not change the default value unless you checked the Tejarat bank docs and it has changed.'),
+      '#description' => t('Will be used as the gateway SOAP server endpoint if operating in test environment.'),
       '#default_value' => variable_get('uc_tejarat_test_soap_uri', UC_TEJARAT_TEST_SOAP_URI),
-      '#required' => TRUE,
     );
 
     return $form;
@@ -192,10 +190,28 @@ function uc_tejarat_settings($op, &$arg1) {
 /**
  * Form validation callback for settings form.
  */
-function uc_paypaad_settings_validate($form, &$form_state) {
+function uc_tejarat_settings_validate($form, &$form_state) {
   // Check for a numeric merchant code.
   if (!ctype_digit($form_state['values']['uc_tejarat_merchant_code'])) {
     form_set_error('uc_tejarat_merchant_code', t('Tejarat bank merchant code must be a valid numeric value.'));
+  }
+  // Check gateway controller URL.
+  if (!valid_url($form_state['values']['uc_tejarat_gateway_uri'], TRUE)) {
+    form_set_error('uc_tejarat_gateway_uri', t('Tejarat bank gateway URI must be valid.'));
+  }
+  // Check SOAP Server URL.
+  if (!valid_url($form_state['values']['uc_tejarat_soap_uri'], TRUE)) {
+    form_set_error('uc_tejarat_soap_uri', t('Tejarat bank SOAP server URI must be valid.'));
+  }
+  // Check test gateway controller URL, if set.
+  if ($form_state['values']['uc_tejarat_test_gateway_uri'] &&
+      !valid_url($form_state['values']['uc_tejarat_test_gateway_uri'], TRUE)) {
+    form_set_error('uc_tejarat_gateway_uri', t('Tejarat bank test gateway URI must be valid.'));
+  }
+  // Check test SOAP Server URL, if set.
+  if ($form_state['values']['uc_tejarat_test_soap_uri'] &&
+      !valid_url($form_state['values']['uc_tejarat_test_soap_uri'], TRUE)) {
+    form_set_error('uc_tejarat_soap_uri', t('Tejarat bank test SOAP server URI must be valid.'));
   }
 }
 

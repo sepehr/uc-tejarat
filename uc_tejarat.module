@@ -179,3 +179,18 @@ function uc_tejarat_access() {
 function _uc_tejarat_prepare($order) {
 
 }
+
+/**
+ * UI helper that injects required hidden fields to the passed form (sub)array.
+ *
+ * @param $data
+ *   Array representation of required data.
+ * @param $form
+ *   Form (sub)array.
+ *
+ * @return
+ *   Field injected form (sub)array.
+ */
+function _uc_tejarat_hidden_fields($data, &$form = array()) {
+
+}

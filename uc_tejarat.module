@@ -142,14 +142,6 @@ function uc_tejarat_settings($op, &$arg1) {
       '#default_value' => variable_get('uc_tejarat_merchant_code', ''),
       '#required' => TRUE,
     );
-    // Merchant password:
-    $form['uc_tejarat_merchant_password'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Merchant password'),
-      '#description' => t('Enter the merchant password provided by Tejarat Bank.'),
-      '#default_value' => variable_get('uc_tejarat_merchant_password', ''),
-      '#required' => TRUE,
-    );
 
     // Gateway URI settings:
     $form['additional'] = array(

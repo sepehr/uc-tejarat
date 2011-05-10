@@ -119,3 +119,12 @@ function uc_paypaad_settings_validate($form, &$form_state) {
     form_set_error('uc_tejarat_merchant_code', t('Tejarat bank merchant code must be a valid numeric value.'));
   }
 }
+
+/**
+ * Menu routes access callback.
+ *
+ * Ensures a free access to defined menu paths.
+ */
+function uc_tejarat_access() {
+  return TRUE;
+}

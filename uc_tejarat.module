@@ -177,7 +177,7 @@ function uc_tejarat_settings($op, &$arg1) {
       '#type' => 'checkbox',
       '#title' => t('Operate in test environment'),
       '#description' => t('If checked, the system will operate in an test environment and so there will be no actual payment. Make sure to disable this feature in production.'),
-      '#default_value' => 0,
+      '#default_value' => variable_get('uc_tejarat_test_env', 0),
       '#return_value'  => 1,
     );
     // Tejarat Bank gateway address:

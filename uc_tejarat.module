@@ -205,5 +205,10 @@ function _uc_tejarat_prepare($order) {
  *   Field injected form (sub)array.
  */
 function _uc_tejarat_hidden_fields($data, &$form = array()) {
-
+  foreach ($data as $key => $value) {
+    $form[$key] = array(
+      '#type' => 'hidden',
+      '#value' => $value,
+    );
+  }
 }

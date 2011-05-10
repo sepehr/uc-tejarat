@@ -59,6 +59,16 @@ function uc_tejarat_payment_method() {
 }
 
 /**
+ * Implements hook_form_alter() for uc_cart_checkout_review_form.
+ *
+ * Alters the order review form and injects required hidden fields,
+ * also alteres its action attribute, addressing the Tejarat Bank gateway.
+ */
+function uc_tejarat_form_uc_cart_checkout_review_form_alter(&$form, $form_state) {
+
+}
+
+/**
  * Form callback for Ubercart Tejarat Bank Payment settings.
  */
 function uc_tejarat_settings($op, &$arg1) {

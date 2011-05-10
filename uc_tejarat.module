@@ -216,12 +216,12 @@ function uc_tejarat_settings_validate($form, &$form_state) {
     form_set_error('uc_tejarat_soap_uri', t('Tejarat bank SOAP server URI must be valid.'));
   }
   // Check test gateway controller URL, if set.
-  if ($form_state['values']['uc_tejarat_test_gateway_uri'] &&
+  if (!empty($form_state['values']['uc_tejarat_test_gateway_uri']) &&
       !valid_url($form_state['values']['uc_tejarat_test_gateway_uri'], TRUE)) {
     form_set_error('uc_tejarat_gateway_uri', t('Tejarat bank test gateway URI must be valid.'));
   }
   // Check test SOAP Server URL, if set.
-  if ($form_state['values']['uc_tejarat_test_soap_uri'] &&
+  if (!empty($form_state['values']['uc_tejarat_test_soap_uri']) &&
       !valid_url($form_state['values']['uc_tejarat_test_soap_uri'], TRUE)) {
     form_set_error('uc_tejarat_soap_uri', t('Tejarat bank test SOAP server URI must be valid.'));
   }

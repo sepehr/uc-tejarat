@@ -42,3 +42,55 @@ function uc_tejarat_payment_method() {
 
   return $methods;
 }
+
+/**
+ * Gateway callback for Ubercart Tejarat Bank Payment.
+ */
+function uc_tejarat_settings($op, &$arg1) {
+  if ($op == 'settings') {
+    $form = array();
+
+    // Merchant code:
+    $form['uc_tejarat_merchant_code'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Merchant code'),
+      '#description' => t('Enter the merchant code provided by Tejarat Bank.'),
+      '#default_value' => variable_get('uc_tejarat_merchant_code', ''),
+      '#required' => TRUE,
+    );
+    // Merchant password:
+    $form['uc_tejarat_merchant_password'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Merchant password'),
+      '#description' => t('Enter the merchant password provided by Tejarat Bank.'),
+      '#default_value' => variable_get('uc_tejarat_merchant_password', ''),
+      '#required' => TRUE,
+    );
+
+    // Gateway URI settings:
+    $form['additional'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Additional options'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    // Tejarat Bank gateway address:
+    $form['additional']['uc_tejarat_gateway_uri'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Tejarat gateway URI'),
+      '#description' => t('Do not change the default value unless you checked the Tejarat bank docs and it has changed.'),
+      '#default_value' => variable_get('uc_tejarat_gateway_uri', UC_TEJARAT_GATEWAY_URI),
+      '#required' => TRUE,
+    );
+    // Tejarat Bank SOAP endpoint address:
+    $form['additional']['uc_tejarat_soap_uri'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Tejarat SOAP Server URI'),
+      '#description' => t('Do not change the default value unless you checked the Tejarat bank docs and it has changed.'),
+      '#default_value' => variable_get('uc_tejarat_soap_uri', UC_TEJARAT_SOAP_URI),
+      '#required' => TRUE,
+    );
+
+    return $form;
+  }
+}

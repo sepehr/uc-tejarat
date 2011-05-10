@@ -9,7 +9,9 @@
  * Implements hook_enable().
  */
 function uc_tejarat_enable() {
-
+  drupal_set_message(st('Ubercart Tejarat Payment has been installed. Please set your settings in <a href="!link">configuration page</a>.',
+    array('!link' => url('admin/store/settings/payment/edit/methods'))
+  ));
 }
 
 /**

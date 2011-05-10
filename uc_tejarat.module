@@ -69,6 +69,17 @@ function uc_tejarat_payment_method() {
 }
 
 /**
+ * Implements hook_ucga_display().
+ *
+ * @see http://api.ubercart.org/api/function/hook_ucga_display/2
+ */
+function uc_tejarat_ucga_display() {
+  if (implode('/', arg()) == 'cart/tejarat/complete') {
+    return TRUE;
+  }
+}
+
+/**
  * Implements hook_form_alter() for uc_cart_checkout_review_form.
  *
  * Alters the order review form and injects required hidden fields,

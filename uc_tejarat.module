@@ -213,10 +213,6 @@ function uc_tejarat_settings($op, &$arg1) {
  * Form validation callback for settings form.
  */
 function uc_tejarat_settings_validate($form, &$form_state) {
-  // Check for a numeric merchant code.
-  if (!ctype_digit($form_state['values']['uc_tejarat_merchant_code'])) {
-    form_set_error('uc_tejarat_merchant_code', t('Tejarat bank merchant code must be a valid numeric value.'));
-  }
   // Check gateway controller URL.
   if (!valid_url($form_state['values']['uc_tejarat_gateway_uri'], TRUE)) {
     form_set_error('uc_tejarat_gateway_uri', t('Tejarat bank gateway URI must be valid.'));

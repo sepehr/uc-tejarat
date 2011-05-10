@@ -73,7 +73,7 @@ function uc_tejarat_form_uc_cart_checkout_review_form_alter(&$form, $form_state)
       // Prepare the order object in form of Tejarat compatible data.
       if ($data = _uc_tejarat_prepare($order)) {
         // Inject hidden fields.
-        uc_tejarat_hidden_fields($data, $form);
+        _uc_tejarat_hidden_fields($data, $form);
         // And update the form action.
         $form['#action'] = variable_get('uc_tejarat_gateway_uri', UC_TEJARAT_GATEWAY_URI);
       }
@@ -164,4 +164,18 @@ function uc_paypaad_settings_validate($form, &$form_state) {
  */
 function uc_tejarat_access() {
   return TRUE;
+}
+
+/**
+ * Internal helper that builds Tejarat compatible data out of an UC order object.
+ *
+ * @param $order
+ *   Ubercart order object.
+ *
+ * @return
+ *   Either an array representation of data as per required by
+ *   Tejarat Bank gateway or FALSE on operation failure.
+ */
+function _uc_tejarat_prepare($order) {
+
 }

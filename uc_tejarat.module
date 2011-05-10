@@ -9,7 +9,18 @@
  * Implements hook_menu().
  */
 function uc_tejarat_menu() {
+  $items = array();
 
+  $items['cart/tejarat/%'] = array(
+    'title' => 'Order payment status',
+    'page callback' => 'uc_tejarat_response',
+    'page arguments' => array(2),
+    'access callback' => 'uc_tejarat_access',
+    'file' => 'uc_tejarat.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
 }
 
 /**

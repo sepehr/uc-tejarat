@@ -6,6 +6,21 @@
  */
 
 /**
+ * Defines API version.
+ */
+define('UC_TEJARAT_API_VERSION', '3.1');
+
+/**
+ * Defines gateway default controller URI.
+ */
+define('UC_TEJARAT_GATEWAY_URI', 'https://pg.tejaratbank.net/paymentGateway/page');
+
+/**
+ * Defines gateway default SOAP Server URI.
+ */
+define('UC_TEJARAT_SOAP_URI', 'http://pg.tejaratbank.net/paymentGateway/services/merchant.wsdl');
+
+/**
  * Implements hook_menu().
  */
 function uc_tejarat_menu() {

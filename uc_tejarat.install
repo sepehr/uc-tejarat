@@ -18,7 +18,7 @@ function uc_tejarat_enable() {
  * Implements hook_install().
  */
 function uc_tejarat_install() {
-
+  drupal_install_schema('uc_tejarat');
 }
 
 /**

@@ -8,6 +8,6 @@
 /**
  * Bank request menu callback.
  */
-function uc_tejarat_request() {
+function uc_tejarat_response() {
 
 }

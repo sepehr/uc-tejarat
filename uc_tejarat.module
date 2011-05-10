@@ -27,5 +27,18 @@ function uc_tejarat_menu() {
  * Implements hook_payment_method().
  */
 function uc_tejarat_payment_method() {
+  $methods = array();
 
+  $methods[] = array(
+    'id' => 'tejarat',
+    'name'  => t('Tejarat Bank'),
+    'title' => t('Tejarat Bank'),
+    'desc'  => t('Redirect to Tejarat bank payment gateway.'),
+    'callback' => 'uc_tejarat_settings',
+    'weight' => 1,
+    'checkout' => TRUE,
+    'no_gateway' => TRUE,
+  );
+
+  return $methods;
 }

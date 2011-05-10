@@ -36,10 +36,9 @@ define('UC_TEJARAT_TEST_SOAP_URI', 'http://pg.sabapardazesh.net:9086/paymentGate
 function uc_tejarat_menu() {
   $items = array();
 
-  $items['cart/tejarat/%'] = array(
+  $items['cart/tejarat/complete'] = array(
     'title' => 'Order payment status',
-    'page callback' => 'uc_tejarat_response',
-    'page arguments' => array(2),
+    'page callback' => 'uc_tejarat_complete',
     'access callback' => 'uc_tejarat_access',
     'file' => 'uc_tejarat.inc',
     'type' => MENU_CALLBACK,

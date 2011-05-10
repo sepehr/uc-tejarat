@@ -177,11 +177,24 @@ function uc_tejarat_access() {
  *   Tejarat Bank gateway or FALSE on operation failure.
  */
 function _uc_tejarat_prepare($order) {
+  // Partially check requirements.
+  if (!is_object($order) || !variable_get('uc_tejarat_merchant_code', FALSE)) {
+    return FALSE;
+  }
 
+  global $base_root;
+  // Build and return the data array out of the $order.
+  return array(
+    'customerId' => $order->uid,
+    'paymentId'  => $order->order_id,
+    'amount' => round($order->order_total),
+    'revertURL'  => $base_root . url('cart/tejarat') . '/status',
+    'merchantId' => variable_get('uc_tejarat_merchant_code', ''),
+  );
 }
 
 /**
- * UI helper that injects required hidden fields to the passed form (sub)array.
+ * Internal helper that injects required hidden fields to the passed form array.
  *
  * @param $data
  *   Array representation of required data.

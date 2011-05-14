@@ -268,7 +268,12 @@ function _uc_tejarat_soap_call($soap_method, $soap_params) {
  *   Boolean value indicating the validation result.
  */
 function _uc_tejarat_verify($order, $payment_response, $enquiry_response) {
-
+  if ($enquiry_response == $order->order_total &&
+      $payment_response['pid'] == $order->order_id &&
+      uc_order_status_data($order->order_status, 'state') == 'in_checkout') {
+    return TRUE;
+  }
+  return FALSE;
 }
 
 /**

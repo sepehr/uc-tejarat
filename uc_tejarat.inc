@@ -174,7 +174,21 @@ function _uc_tejarat_validate($phase, $code) {
  * @see _uc_tejarat_soap_call()
  */
 function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
+  // Load the merchant code from configs, if not set.
+  if ($rid && ($merchant || ($merchant = variable_get('uc_tejarat_merchant_code', '')))) {
+    // Set the SOAP params.
+    $soap_params = array(
+      'merchantId' => $merchant,
+      'referenceNumber' => $rid,
+    );
 
+    // Call the remote SOAP method and return the results.
+    if ($soap_results = _uc_tejarat_soap_call('verifyRequest', $soap_params)) {
+      return $soap_results;
+    }
+  }
+  // Locally invalid merchant.
+  return FALSE;
 }
 
 /**

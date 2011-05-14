@@ -83,7 +83,36 @@ function uc_tejarat_complete() {
  *   Enquiry response which should contain the paid amount logically.
  */
 function _uc_tejarat_finalize($order, $response, $enquiry) {
+  global $user;
 
+  // Save the transaction information.
+  uc_tejarat_save($order, $response, $enquiry);
+
+  // UC order completion workflow...
+  $comment = t('Total amount of "!amount" has been successfully paid via "!method". Payment reference is "!reference".',
+    array(
+      '!reference' => $response['rid'],
+      '!method' => ucwords($order->payment_method),
+      '!amount' => uc_currency_format($enquiry, TRUE, TRUE, NULL),
+    )
+  );
+
+  // Enter payment for the order.
+  uc_payment_enter($order->order_id, $order->payment_method, $order->order_total, 0, array('reference' => $response['rid']), $comment);
+  // Let her know the reference number.
+  drupal_set_message($comment);
+  // Empty user cart, Update order status, register customer if required
+  // and log her in. Also get the themed output of order completion page.
+  $message = uc_cart_complete_sale($order, TRUE);
+  // Notify user about order completion.
+  drupal_set_message($message);
+  // Log comments to order, for both customer & admin.
+  // Needs to be called after uc_cart_complete_sale().
+  uc_order_comment_save($order->order_id, 0, $comment);
+  uc_order_comment_save($order->order_id, 0, $comment, 'order', uc_order_state_default('post_checkout'), TRUE);
+
+  // And redirect to the proper end!
+  drupal_goto(variable_get('uc_cart_checkout_complete_page', 'cart'));
 }
 
 /**

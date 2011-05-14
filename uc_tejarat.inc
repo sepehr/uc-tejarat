@@ -36,3 +36,19 @@ function _uc_tejarat_response() {
 
 }
 
+/**
+ * Internal helper which validates transaction result code.
+ *
+ * @param $phase
+ *   Validation phase:
+ *   - UC_TEJARAT_PHASE_PAYMENT: Validates payment results.
+ *   - UC_TEJARAT_PHASE_ENQUIRY: Validates enquiry results.
+ * @param $code
+ *   The operation result code.
+ *
+ * @return
+ *   Boolean value indicating the operation validation result.
+ */
+function _uc_tejarat_validate($phase, $code) {
+
+}

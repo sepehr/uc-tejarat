@@ -146,7 +146,16 @@ function _uc_tejarat_response() {
  *   Boolean value indicating the operation validation result.
  */
 function _uc_tejarat_validate($phase, $code) {
+  // Payment validation phase:
+  if ($phase == UC_TEJARAT_PHASE_PAYMENT) {
+    return $code == 100 ? TRUE : FALSE;
+  }
+  // Enquiry validation phase:
+  elseif ($phase == UC_TEJARAT_PHASE_ENQUIRY) {
+    return ($code > 0) ? TRUE : FALSE;
+  }
 
+  return FALSE;
 }
 
 /**

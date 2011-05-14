@@ -12,6 +12,16 @@
  */
 
 /**
+ * Indicates the "payment" validation phase.
+ */
+define('UC_TEJARAT_PHASE_PAYMENT', 1);
+
+/**
+ * Indicates the "enquiry" validation phase.
+ */
+define('UC_TEJARAT_PHASE_ENQUIRY', 2);
+
+/**
  * Menu callback for cart/tejarat/complete path, handling gateway response.
  */
 function uc_tejarat_complete() {

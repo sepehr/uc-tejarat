@@ -25,7 +25,51 @@ define('UC_TEJARAT_PHASE_ENQUIRY', 2);
  * Menu callback for cart/tejarat/complete path, handling gateway response.
  */
 function uc_tejarat_complete() {
+  // Load UC order object.
+  $order = uc_order_load((int) $_SESSION['cart_order']);
 
+  // Check order and bank response availability.
+  if ($order && ($response = _uc_tejarat_response())) {
+    // Validate transaction result code.
+    if (_uc_tejarat_validate(UC_TEJARAT_PHASE_PAYMENT, $response['result_code'])) {
+      // Enquiry the transaction remotely.
+      $enquiry = _uc_tejarat_enquiry($response['rid']);
+      // Validate the enquiry result code.
+      // That would be the paid amount in successfull enquiries.
+      if (_uc_tejarat_validate(UC_TEJARAT_PHASE_ENQUIRY, $enquiry)) {
+        // The transaction has been validated remotely, there
+        // were no problems there. Now we need to verify the
+        // transaction locally.
+        if (_uc_tejarat_verify($order, $response, $enquiry)) {
+          // Well, no problems locally. Complete the order:
+          _uc_tejarat_finalize($order, $response, $enquiry);
+        }
+        else {
+          // Failure to verify the payment locally. Log the verificaion error.
+          watchdog('uc_tejarat', 'Payment local verification failed for order ID %order.', array(
+            '%order' => $order_id,
+          ), WATCHDOG_ERROR);
+        }
+      }
+      else {
+        // Failure in remote payment enquiry.
+        watchdog('uc_tejarat', 'Payment enquiry has been failed for order ID %order via SOAP: @error.', array(
+          '%order' => $order_id,
+          '@error' => _uc_tejarat_translate($enquiry),
+        ), WATCHDOG_ERROR);
+      }
+    }
+    else {
+      // Failure in payment phase validation, Let user know about the error.
+      drupal_set_message(_uc_tejarat_translate($response['result_code']), 'warning');
+    }
+  }
+
+  // Handle a failed payment, notify user.
+  drupal_set_message(t('There were a problem processing your payment via Tejarat Bank, please try again.'), 'error');
+
+  // Redirect to checkout page.
+  drupal_goto('cart/checkout');
 }
 
 /**

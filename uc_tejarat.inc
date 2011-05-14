@@ -122,7 +122,14 @@ function _uc_tejarat_finalize($order, $response, $enquiry) {
  *   Either an array of request response or FALSE on unexpected failure.
  */
 function _uc_tejarat_response() {
-
+  if (isset($_POST['paymentId'], $_POST['referenceId'], $_POST['resultCode'])) {
+    return array(
+      'pid' => (int) $_POST['paymentId'],
+      'rid' => check_plain($_POST['referenceId']),
+      'result_code' => (int) $_POST['resultCode'],
+    );
+  }
+  return FALSE;
 }
 
 /**

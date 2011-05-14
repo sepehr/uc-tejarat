@@ -288,5 +288,68 @@ function _uc_tejarat_verify($order, $payment_response, $enquiry_response) {
  *   Result code corresponding message.
  */
 function _uc_tejarat_translate($code) {
+  switch (intval($code)) {
+    case 100:
+      return t('The payment has been successfully processed.');
 
+    case 110:
+      return t('The payment process has been cancelled by the customer.');
+
+    case 120:
+      return t('Not enough money in the checking account.');
+
+    case 130:
+      return t('Wrong card credentials.');
+
+    case 131:
+      return t('Invalid card password.');
+
+    case 132:
+      return t('The card is blocked.');
+
+    case 133:
+      return t('The card has been expired.');
+
+    case 140:
+      return t('Transaction process timeout.');
+
+    case 150:
+      return t('Bank internal error.');
+
+    case 160:
+      return t('Invalid card CVV2 or Expiry date.');
+
+    case 166:
+      return t('Your bank has not allowed the transaction.');
+
+    case 200:
+      return t('The transaction amount is higher than the defined transaction maximum.');
+
+    case 201:
+      return t('The transaction amount is higher than the defined transaction maximum per day');
+
+    case 202:
+      return t('The transaction amount is higher than the defined transaction maximum per month');
+
+    case -20:
+      return t('Invalid characters in the request.');
+
+    case -30:
+      return t('The transaction has been cancelled before.');
+
+    case -50:
+      return t('The request string length is invalid.');
+
+    case -51:
+      return t('Request errors.');
+
+    case -80:
+      return t('Could not find the transaction.');
+
+    case -81:
+      return t('Bank internal error.');
+
+    case -90:
+      return t('The transaction has been validated before.');
+  }
 }

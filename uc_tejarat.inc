@@ -90,3 +90,24 @@ function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
 function _uc_tejarat_soap_call($soap_method, $soap_params) {
 
 }
+
+/**
+ * Internal helper which verifies a paid transaction locally.
+ *
+ * Checks if the paid amount is equal to the order subtotal, and
+ * the sent paymentId and current order_id have the same values. Also
+ * it checks the order state to be in "in_checkout" to verify the transaction.
+ *
+ * @param $order
+ *   UC order object.
+ * @param $payment_response
+ *   Payment response.
+ * @param $enquiry_response
+ *   Enquiry response.
+ *
+ * @return
+ *   Boolean value indicating the validation result.
+ */
+function _uc_tejarat_verify($order, $payment_response, $enquiry_response) {
+
+}

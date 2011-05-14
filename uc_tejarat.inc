@@ -52,3 +52,23 @@ function _uc_tejarat_response() {
 function _uc_tejarat_validate($phase, $code) {
 
 }
+
+/**
+ * Internal helper which validates the transaction on the gateway side via SOAP.
+ *
+ * @param $rid
+ *   Transaction's reference id as per returned by the gateway.
+ * @param $merchant
+ *   Optional merchant code.
+ *
+ * @return
+ *   Either the transaction amount on success or a negetive
+ *   result code on transaction enquiry failure. This also
+ *   returns FALSE on local errors.
+ *
+ * @see _uc_tejarat_soap_call()
+ */
+function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
+
+}
+

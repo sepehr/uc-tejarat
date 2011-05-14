@@ -240,6 +240,35 @@ function uc_tejarat_access() {
 }
 
 /**
+ * API function which saves passed transaction information into db.
+ *
+ * @param $order
+ *   UC order object to get finalized.
+ * @param $response
+ *   Payment response.
+ * @param $enquiry
+ *   Enquiry response which should contain the paid amount logically.
+ *
+ * @return
+ *   The output as per returned by drupal_write_record().
+ *
+ * @see drupal_write_record()
+ */
+function uc_tejarat_save($order, $response, $enquiry) {
+  global $user;
+
+  $transaction = array(
+    'uid' => $user->uid,
+    'timestamp' => time(),
+    'pid' => $response['pid'],
+    'rid' => $response['rid'],
+    'amount' => (int) $enquiry,
+  );
+
+  drupal_write_record('uc_tejarat', $transaction);
+}
+
+/**
  * Internal helper that builds Tejarat compatible data out of an UC order object.
  *
  * @param $order

@@ -3,6 +3,12 @@
 /**
  * @file
  * Contains UC Tejarat Payment callbacks and helpers.
+ *
+ * @todo
+ *   - Avoid enquiry request flood.
+ *   - Test out the module on a production server with a registered IP.
+ *   - Drop the nuSOAP library and implement the SOAPClient module's API. It's
+ *     incompatible with Tejarat Bank's legacy webservices!
  */
 
 /**
@@ -126,4 +132,3 @@ function _uc_tejarat_verify($order, $payment_response, $enquiry_response) {
 function _uc_tejarat_translate($code) {
 
 }
-

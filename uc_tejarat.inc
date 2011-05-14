@@ -111,3 +111,19 @@ function _uc_tejarat_soap_call($soap_method, $soap_params) {
 function _uc_tejarat_verify($order, $payment_response, $enquiry_response) {
 
 }
+
+/**
+ * Internal helper that translates an operation result code.
+ *
+ * Returns an operation code's corresponding localizable and human-readable message.
+ *
+ * @param $code
+ *   The transaction result code.
+ *
+ * @return
+ *   Result code corresponding message.
+ */
+function _uc_tejarat_translate($code) {
+
+}
+

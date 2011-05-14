@@ -207,7 +207,47 @@ function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
  *   Either the remote method call results or FALSE on SOAP failure.
  */
 function _uc_tejarat_soap_call($soap_method, $soap_params) {
+  // Load the legacy nuSOAP library.
+  module_load_include('php', 'uc_tejarat', 'includes/nusoap');
 
+  // Instantiate a legacy SOAPClient object.
+  $soap_server = _uc_tejarat_gateway_uri('soap');
+  $soap_client = new nusoap_client($soap_server);
+
+  // Check for instantiation errors.
+  if ($soap_client->getError()) {
+    // Log SOAP instantiation error.
+    watchdog('uc_tejarat', 'Could not connect to SOAP server: @error', array(
+      '@error' => $soap_client->getError()
+    ), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Set service specific options before remote method call.
+  $soap_client->setUseCurl(TRUE);
+
+  // There were no instantiation error, call the remote method.
+  $soap_results = $soap_client->call($soap_method, $soap_params, UC_TEJARAT_GATEWAY_NAMESPACE);
+
+  // Check for SOAP call faults.
+  if ($soap_client->fault) {
+    // Log SOAP method call error.
+    watchdog('uc_tejarat', 'Transaction validation failed, fault: @fault', array(
+      '@fault' => $soap_results
+    ), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Check for SOAP call errors.
+  if ($soap_client->getError()) {
+    watchdog('uc_tejarat', 'Transaction validation failed, error: @error', array(
+      '@error' => $soap_client->getError()
+    ), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // No probs, return results.
+  return $soap_client->return;
 }
 
 /**

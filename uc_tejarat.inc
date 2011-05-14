@@ -26,3 +26,13 @@ function _uc_tejarat_finalize($order, $response, $enquiry) {
 
 }
 
+/**
+ * Internal helper to return a successfull request response.
+ *
+ * @return
+ *   Either an array of request response or FALSE on unexpected failure.
+ */
+function _uc_tejarat_response() {
+
+}
+

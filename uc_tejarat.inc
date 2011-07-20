@@ -194,7 +194,7 @@ function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
 /**
  * Internal helper to call a remote SOAP method in the legacy way.
  *
- * Tejarat Bank's service is only compatible with an old version of nuSOAP
+ * Note: Tejarat Bank's service is only compatible with an old version of nuSOAP
  * library which is included in this module. We should drop this library and
  * add a dependency point on soapclient module.
  *
@@ -205,6 +205,9 @@ function _uc_tejarat_enquiry($rid, $merchant = FALSE) {
  *
  * @return
  *   Either the remote method call results or FALSE on SOAP failure.
+ *
+ * @todo
+ *   Drop the include nuSOAP library and add dependency on SoapClient module.
  */
 function _uc_tejarat_soap_call($soap_method, $soap_params) {
   // Load the legacy nuSOAP library.

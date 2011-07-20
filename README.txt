@@ -3,6 +3,10 @@ Description
 Ubercart Tejarat Bank Payment provides Ubercart 2.x a new "Payment Method" to process its online payments
 through the Tejarat Bank Payment gateway (http://tejaratbank.ir/).
 
+Disclaimer
+==========
+This module is in an early development stage, It is not intended to be used in production.
+
 Requirements
 ============
 1. A registered IP address on Tejarat Bank gateway.
